@@ -8,6 +8,7 @@ namespace CV19.ViewModels.Base
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #region Реализация интерфейса IDisposable
         private bool _Disposed;
 
         //~ViewModel()
@@ -30,6 +31,7 @@ namespace CV19.ViewModels.Base
             }
             //Освобождение управляемых ресурсов
         }
+        #endregion
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
