@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="66,65,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="302,81,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <RadioButton x:Name="radioButton" Content="RadioButton" HorizontalAlignment="Left" Margin="315,143,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="315,204,0,0" VerticalAlignment="Top"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="441,256,0,0" VerticalAlignment="Top" Width="120"/>
+        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="66,289,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>
