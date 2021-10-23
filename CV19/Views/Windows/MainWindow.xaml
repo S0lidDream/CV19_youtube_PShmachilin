@@ -6,6 +6,8 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:cmd="clr-namespace:CV19.Infrastructure.Commands"
         xmlns:vm="clr-namespace:CV19.ViewModels" 
+        xmlns:oxy="http://oxyplot.org/wpf"
+    
         xmlns:l="clr-namespace:CV19"
         Title="{Binding Path=Title}" 
         Height="450" Width="800">
@@ -76,7 +78,15 @@
                                   Width="4"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Вкладка 2"></TabItem>
+            <TabItem Header="График">
+                <oxy:Plot>
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Left"/>
+                        <oxy:LinearAxis Position="Bottom"/>
+                    </oxy:Plot.Axes>
+                    <oxy:LineSeries Color="Red" ItemsSource="{Binding TestDataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
+                </oxy:Plot>
+            </TabItem>
         </TabControl>
         
     </DockPanel>
