@@ -136,8 +136,25 @@
                     <GroupBox Header="Группы" Grid.Column="0">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <Button Content="Добавить" VerticalContentAlignment="Center" Margin="0,0,1.5,0" Command="{Binding CreateNewGroupCommand}"/>
-                                <Button Content="Удалить" VerticalContentAlignment="Center" Margin="1.5,0,0,0" Command="{Binding DeleteNewGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                                <UniformGrid.Resources>
+                                    <Style x:Key="ButtonStyle" TargetType="Button">
+                                        <Setter Property="Margin" Value="3,0"/>
+                                        <Setter Property="Padding" Value="3,5"/>
+                                        <Setter Property="Background" Value="White"/>
+                                        <!--<Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border CornerRadius="5" Background="DarkKhaki">
+                                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>-->
+                                    </Style>
+                                </UniformGrid.Resources>
+                                <Button Content="Добавить" VerticalContentAlignment="Center" Style="{StaticResource ButtonStyle}" Command="{Binding CreateNewGroupCommand}"/>
+                                <Button Content="Удалить" VerticalContentAlignment="Center" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteNewGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" 
                                  SelectedItem="{Binding SelectedGroup}"
