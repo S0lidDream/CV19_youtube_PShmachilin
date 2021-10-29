@@ -20,6 +20,9 @@
     </Window.DataContext>
     <Window.Resources>
         <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+        <!--<Style TargetType="Button">
+            <Setter Property="Background" Value="Green"/>
+        </Style>-->
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -137,11 +140,11 @@
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <UniformGrid.Resources>
-                                    <Style x:Key="ButtonStyle" TargetType="Button">
+                                    <!--<Style TargetType="Button">
                                         <Setter Property="Margin" Value="3,0"/>
                                         <Setter Property="Padding" Value="3,5"/>
                                         <Setter Property="Background" Value="White"/>
-                                        <!--<Setter Property="Template">
+                                        --><!--<Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="Button">
                                                     <Border CornerRadius="5" Background="DarkKhaki">
@@ -150,11 +153,11 @@
                                                     </Border>
                                                 </ControlTemplate>
                                             </Setter.Value>
-                                        </Setter>-->
-                                    </Style>
+                                        </Setter>--><!--
+                                    </Style>-->
                                 </UniformGrid.Resources>
-                                <Button Content="Добавить" VerticalContentAlignment="Center" Style="{StaticResource ButtonStyle}" Command="{Binding CreateNewGroupCommand}"/>
-                                <Button Content="Удалить" VerticalContentAlignment="Center" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteNewGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                                <Button Content="Добавить" Style="{StaticResource PrimaryBtn}" VerticalContentAlignment="Center" Command="{Binding CreateNewGroupCommand}"/>
+                                <Button Content="Удалить" Style="{StaticResource DangerBtn}" VerticalContentAlignment="Center" Command="{Binding DeleteNewGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" 
                                  SelectedItem="{Binding SelectedGroup}"
@@ -218,9 +221,11 @@
                     <oxy:LineSeries Color="Red" ItemsSource="{Binding TestDataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
                 </oxy:Plot>
             </TabItem>
-            <TabItem Header="Вкладка 3"></TabItem>
-            <TabItem Header="Вкладка 4"></TabItem>
+            <TabItem Header="Вкладка 4">
+                <Button VerticalAlignment="Top" Style="{StaticResource DangerBtn}" HorizontalAlignment="Left" Content="12345" Padding="14,5"/>
+            </TabItem>
             <TabItem Header="Вкладка 5"></TabItem>
+            <TabItem Header="Вкладка 6"></TabItem>
         </TabControl>
         
     </DockPanel>
