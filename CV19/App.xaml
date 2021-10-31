@@ -9,6 +9,5 @@
                 <ResourceDictionary Source="Resources/Styles/Buttons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
     </Application.Resources>
 </Application>

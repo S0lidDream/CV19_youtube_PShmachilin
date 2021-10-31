@@ -105,25 +105,8 @@
                     <GroupBox Header="Группы" Grid.Column="0">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <UniformGrid.Resources>
-                                    <!--<Style TargetType="Button">
-                                        <Setter Property="Margin" Value="3,0"/>
-                                        <Setter Property="Padding" Value="3,5"/>
-                                        <Setter Property="Background" Value="White"/>
-                                        --><!--<Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border CornerRadius="5" Background="DarkKhaki">
-                                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>--><!--
-                                    </Style>-->
-                                </UniformGrid.Resources>
-                                <Button Content="Добавить" Style="{StaticResource PrimaryBtn}" VerticalContentAlignment="Center" Command="{Binding CreateNewGroupCommand}"/>
-                                <Button Content="Удалить" Style="{StaticResource DangerBtn}" VerticalContentAlignment="Center" Command="{Binding DeleteNewGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                                <Button Content="Добавить" Padding="0,7" Style="{StaticResource CheckButtonStyle}" VerticalContentAlignment="Center" Command="{Binding CreateNewGroupCommand}"/>
+                                <Button Content="Удалить" Padding="0,7" Style="{StaticResource RemoveButtonStyle}" VerticalContentAlignment="Center" Command="{Binding DeleteNewGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" 
                                  SelectedItem="{Binding SelectedGroup}"
@@ -138,7 +121,7 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </DockPanel>
-                       
+
                     </GroupBox>
                     <GroupBox Header="{Binding SelectedGroup.Name, FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}" Grid.Column="1">
                         <DataGrid ItemsSource="{Binding SelectedGroup.Students}" 
@@ -188,11 +171,57 @@
                 </oxy:Plot>
             </TabItem>
             <TabItem Header="Вкладка 4">
-                <Button VerticalAlignment="Top" Style="{StaticResource DangerBtn}" HorizontalAlignment="Left" Content="12345" Padding="14,5"/>
+                <Button VerticalAlignment="Top" 
+                        HorizontalAlignment="Left" 
+                        Content="12345" 
+                        Padding="14,5"
+                        Margin="20,40"
+                        Style="{StaticResource CustomButtonStyle}" 
+                        Width="110"
+                        RenderTransformOrigin="0.5,0.5" >
+                    <Button.Background>
+                        <SolidColorBrush Color="White" x:Name="ButtonBrush"/>
+                    </Button.Background>
+                    <Button.RenderTransform>
+                        <RotateTransform x:Name="ButtonRotate"/>
+                    </Button.RenderTransform>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ButtonRotate"
+                                                     Storyboard.TargetProperty="Angle"
+                                                     From="0" To="360" Duration="0:0:0.5" AutoReverse="True"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="ButtonBrush"
+                                                    Storyboard.TargetProperty="Color"
+                                                    Duration="0:0:0.1"
+                                                    To="Red"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="ButtonBrush"
+                                                    Storyboard.TargetProperty="Color"
+                                                    Duration="0:0:3"
+                                                    To="White"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
             </TabItem>
             <TabItem Header="Вкладка 5"></TabItem>
             <TabItem Header="Вкладка 6"></TabItem>
         </TabControl>
-        
+
     </DockPanel>
 </Window>
