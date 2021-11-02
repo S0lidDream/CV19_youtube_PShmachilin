@@ -105,18 +105,20 @@
                     <GroupBox Header="Группы" Grid.Column="0">
                         <DockPanel>
                             <DockPanel.Resources>
-                                <CollectionViewSource x:Key="GroupCollection" Source="{Binding Groups}"/>
+                                <CollectionViewSource x:Key="GroupsCollection"
+                                                      Source="{Binding Groups}"
+                                                      Filter="CollectionViewSource_Filter"/>
                             </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,3">
                                 <!--<TextBlock Text="Фильтр:"/>-->
                                 <fa:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
-                                <TextBox/>
+                                <TextBox Name="GroupNameFilterText" TextChanged="GroupNameFilterText_TextChanged"/>
                             </DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <Button Content="Добавить" Padding="0,7" Style="{StaticResource CheckButtonStyle}" VerticalContentAlignment="Center" Command="{Binding CreateNewGroupCommand}"/>
                                 <Button Content="Удалить" Padding="0,7" Style="{StaticResource RemoveButtonStyle}" VerticalContentAlignment="Center" Command="{Binding DeleteNewGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
-                            <ListBox ItemsSource="{Binding Source={StaticResource GroupCollection}}" 
+                            <ListBox ItemsSource="{Binding Source={StaticResource GroupsCollection}}" 
                                  SelectedItem="{Binding SelectedGroup}"
                                  SelectedIndex="0">
                                 <ListBox.ItemTemplate>
