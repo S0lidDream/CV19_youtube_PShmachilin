@@ -33,7 +33,7 @@ namespace CV19
 
 
             if (group.Name.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
-            if(group.Description!=null && group.Description.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
+            if(group.Description != null && group.Description.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
 
             e.Accepted = false;
         }

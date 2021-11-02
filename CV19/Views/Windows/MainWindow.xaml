@@ -97,8 +97,6 @@
             <TabItem Header="Студенты">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <!--<ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="7*"/>-->
                         <ColumnDefinition Width="250"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
@@ -121,9 +119,9 @@
                             <ListBox ItemsSource="{Binding Source={StaticResource GroupsCollection}}" 
                                  SelectedItem="{Binding SelectedGroup}"
                                  SelectedIndex="0"
-                                     VirtualizingPanel.IsContainerVirtualizable="True"
-                                     VirtualizingPanel.IsVirtualizing="True"
-                                     VirtualizingPanel.VirtualizationMode="Recycling">
+                                 VirtualizingPanel.IsContainerVirtualizable="True"
+                                 VirtualizingPanel.IsVirtualizing="True"
+                                 VirtualizingPanel.VirtualizationMode="Recycling">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel/>
@@ -145,8 +143,9 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </DockPanel>
-
                     </GroupBox>
+                    
+                    
                     <GroupBox Header="{Binding SelectedGroup.Name, FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}" Grid.Column="1">
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0,3">
@@ -157,8 +156,14 @@
                                   AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"
                                   VerticalGridLinesBrush="DarkGray"
-                                  AlternatingRowBackground="LightGray">
+                                  AlternatingRowBackground="LightGray"
+                                  EnableRowVirtualization="True">
                                 <!--HorizontalGridLinesBrush="{x:Null}">-->
+                                <!--<DataGrid.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel></VirtualizingStackPanel>
+                                    </ItemsPanelTemplate>
+                                </DataGrid.ItemsPanel>-->
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
                                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
@@ -251,7 +256,15 @@
             <TabItem Header="Тестирование виртуализации">
                 <Grid>
                     <!--<TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}"/>-->
-                    <ListBox HorizontalAlignment="Left" Width="200" Margin="30" ItemsSource="{Binding TestStudents}">
+                    <ListBox HorizontalAlignment="Left" Width="200" Margin="30" ItemsSource="{Binding TestStudents}"
+                             VirtualizingPanel.IsVirtualizing="True"
+                             VirtualizingPanel.VirtualizationMode="Recycling"
+                             VirtualizingPanel.IsContainerVirtualizable="True">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -262,7 +275,7 @@
                                 <!--<TextBlock Text="{Binding Surname}" ToolTip="{Binding Name}"/>-->
                                 <Border BorderBrush="Blue" BorderThickness="1" CornerRadius="3" Padding="3">
                                     <Border.CacheMode>
-                                        <BitmapCache/>
+                                        <BitmapCache RenderAtScale="5"/>
                                     </Border.CacheMode>
                                     <StackPanel>
                                         <TextBlock Text="{Binding Surname}" ToolTip="{Binding Surname}"/>
