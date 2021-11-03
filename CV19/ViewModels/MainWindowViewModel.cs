@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models;
@@ -46,15 +48,69 @@ namespace CV19.ViewModels
         public Group SelectedGroup
         {
             get => _SelectedGroup;
-            set => Set(ref _SelectedGroup, value);
+            set
+            {
+                if(!Set(ref _SelectedGroup, value)) return;
+                _SelectedGroupStudents.Source = value?.Students;
+                OnPropertyChanged(nameof(SelectedGroupStudents));
+            }
         }
+        #endregion
+
+        #region StudentFilterText : string - Текст фильтра студентов
+        /// <summary>
+        /// Текст фильтра студентов
+        /// </summary>
+        private string _StudentFilterText;
+
+        /// <summary>
+        /// Текст фильтра студентов
+        /// </summary>
+        public string StudentFilterText
+        {
+            get => _StudentFilterText;
+            set
+            {
+                if(!Set(ref _StudentFilterText, value)) return;
+                _SelectedGroupStudents.View.Refresh();
+            }
+        }
+        #endregion
+
+        #region SelectedGroupStudents
+        private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
+
+        private void OnStudentFiltred(object sender, FilterEventArgs e)
+        {
+            if(!(e.Item is Student student))
+            {
+                e.Accepted = false;
+                return;
+            }
+            var filter_text = _StudentFilterText;
+            if (string.IsNullOrWhiteSpace(filter_text)) return;
+
+            if (student.Name is null || student.Surname is null || student.Patronymic is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            if (student.Name.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Surname.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Patronymic.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
+
+            e.Accepted = false;
+        }
+
+        public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
         #endregion
 
         #region SelectedPageIndex : int - Номер выбранной вкладки
         /// <summary>
         /// Номер выбранной вкладки
         /// </summary>
-        private int _SelectedPageIndex;
+        private int _SelectedPageIndex = 1;
 
         /// <summary>
         /// Номер выбранной вкладки
@@ -67,8 +123,6 @@ namespace CV19.ViewModels
 
         #endregion
 
-
-
         #region TestDataPoint : IEnumerable<DataPoint> - Тестовый набор данных для визууализации графиков
 
         private IEnumerable<DataPoint> _TestDataPoints;
@@ -79,7 +133,6 @@ namespace CV19.ViewModels
         }
 
         #endregion
-
 
         #region Заголовок главного окна
         private string _Title = "Анализ статистики CV19";
@@ -227,6 +280,15 @@ namespace CV19.ViewModels
             data_list.Add(group.Students[0]);
 
             CompositeCollection = data_list.ToArray();
+
+            _SelectedGroupStudents.Filter += OnStudentFiltred;
+
+            //Сортировка
+            //_SelectedGroupStudents.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
+            //Группировка
+            //_SelectedGroupStudents.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
         }
+
+
     }
 }

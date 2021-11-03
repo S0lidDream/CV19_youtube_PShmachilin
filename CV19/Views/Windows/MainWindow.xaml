@@ -9,7 +9,7 @@
         xmlns:decanat="clr-namespace:CV19.Models.Decanat" 
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-        xmlns:l="clr-namespace:CV19"
+        xmlns:l="clr-namespace:CV19" xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         Title="{Binding Path=Title}" 
         Height="450" Width="800">
     <Window.InputBindings>
@@ -105,7 +105,14 @@
                             <DockPanel.Resources>
                                 <CollectionViewSource x:Key="GroupsCollection"
                                                       Source="{Binding Groups}"
-                                                      Filter="CollectionViewSource_Filter"/>
+                                                      Filter="CollectionViewSource_Filter">
+                                    <CollectionViewSource.SortDescriptions>
+                                        <cm:SortDescription PropertyName="Name" Direction="Descending"/>
+                                    </CollectionViewSource.SortDescriptions>
+                                    <CollectionViewSource.GroupDescriptions>
+                                        <PropertyGroupDescription PropertyName="Students.Count"/>
+                                    </CollectionViewSource.GroupDescriptions>
+                                </CollectionViewSource>
                             </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,3">
                                 <!--<TextBlock Text="Фильтр:"/>-->
@@ -150,14 +157,17 @@
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0,3">
                                 <fa:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding StudentFilterText, UpdateSourceTrigger=PropertyChanged}"/>
                             </DockPanel>
-                            <DataGrid ItemsSource="{Binding SelectedGroup.Students}" 
+                            <DataGrid ItemsSource="{Binding SelectedGroupStudents}" 
                                   AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"
                                   VerticalGridLinesBrush="DarkGray"
                                   AlternatingRowBackground="LightGray"
                                   EnableRowVirtualization="True">
+                                <!--<DataGrid.GroupStyle >
+                                    <GroupStyle />
+                                </DataGrid.GroupStyle>-->
                                 <!--HorizontalGridLinesBrush="{x:Null}">-->
                                 <!--<DataGrid.ItemsPanel>
                                     <ItemsPanelTemplate>
