@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CV19.Models.Decanat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +23,26 @@ namespace CV19
             InitializeComponent();
         }
 
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Group group)) return;
+            if (group.Name is null) return;
+
+            var filter_text = GroupNameFilterText.Text;
+            if (filter_text.Length == 0) return;
+
+
+            if (group.Name.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
+            if(group.Description != null && group.Description.Contains(filter_text, StringComparison.OrdinalIgnoreCase)) return;
+
+            e.Accepted = false;
+        }
+
+        private void GroupNameFilterText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text_box = (TextBox)sender;
+            var collection = (CollectionViewSource)text_box.FindResource("GroupsCollection");
+            collection.View.Refresh();
+        }
     }
 }
