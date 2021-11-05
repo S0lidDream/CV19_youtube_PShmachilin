@@ -17,8 +17,46 @@ namespace CV19.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         /*-------------------------------------------------------------------------------------------*/
+        #region Заголовок главного окна
+        private string _Title = "Анализ статистики CV19";
 
-        public ObservableCollection<Group> Groups { get; set; }
+        /// <summary>
+        /// Заголовок главного окна
+        /// </summary>
+        public string Title
+        {
+            get => _Title;
+            //set
+            //{
+            //    if (Equals(_Title, value)) return;
+            //    _Title = value;
+            //    OnPropertyChanged();
+
+            //    Set(ref _Title, value);
+            //}
+            set => Set(ref _Title, value);
+        }
+        #endregion
+        
+        #region SelectedPageIndex : int - Номер выбранной вкладки
+        /// <summary>
+        /// Номер выбранной вкладки
+        /// </summary>
+        private int _SelectedPageIndex = 1;
+
+        /// <summary>
+        /// Номер выбранной вкладки
+        /// </summary>
+        public int SelectedPageIndex
+        {
+            get => _SelectedPageIndex;
+            set => Set(ref _SelectedPageIndex, value);
+        }
+
+        #endregion
+
+
+        #region Вкладка 0 "Разнородные данные"
         public object[] CompositeCollection { get; }
 
         #region SelectedCompositeValue : object - Выбранный непонятный элемент
@@ -35,6 +73,10 @@ namespace CV19.ViewModels
             set => Set(ref _SelectedCompositeValue, value);
         }
         #endregion
+        #endregion
+
+        #region Вкладка 1 "Студенты"
+        public ObservableCollection<Group> Groups { get; set; }
 
         #region SelectedGroup: Group - Выбранная группа
         /// <summary>
@@ -106,22 +148,9 @@ namespace CV19.ViewModels
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
         #endregion
 
-        #region SelectedPageIndex : int - Номер выбранной вкладки
-        /// <summary>
-        /// Номер выбранной вкладки
-        /// </summary>
-        private int _SelectedPageIndex = 1;
-
-        /// <summary>
-        /// Номер выбранной вкладки
-        /// </summary>
-        public int SelectedPageIndex
-        {
-            get => _SelectedPageIndex;
-            set => Set(ref _SelectedPageIndex, value);
-        }
-
         #endregion
+
+        #region Вкладка 2 "График"
 
         #region TestDataPoint : IEnumerable<DataPoint> - Тестовый набор данных для визууализации графиков
 
@@ -134,42 +163,9 @@ namespace CV19.ViewModels
 
         #endregion
 
-        #region Заголовок главного окна
-        private string _Title = "Анализ статистики CV19";
-
-        /// <summary>
-        /// Заголовок главного окна
-        /// </summary>
-        public string Title
-        {
-            get => _Title;
-            //set
-            //{
-            //    if (Equals(_Title, value)) return;
-            //    _Title = value;
-            //    OnPropertyChanged();
-
-            //    Set(ref _Title, value);
-            //}
-            set => Set(ref _Title, value);
-        }
         #endregion
 
-        #region Status : string - Статус программы
-        /// <summary>
-        /// Статус программы
-        /// </summary>
-        private string _Status = "Готово!";
-        /// <summary>
-        /// Статус программы
-        /// </summary>
-        public string Status
-        {
-            get => _Status;
-            set => Set(ref _Status, value);
-        }
-        #endregion
-
+        #region Вкладка 4 "Тестирование виртуализации" 
         public IEnumerable<Student> TestStudents =>
             Enumerable.Range(1, App.IsDesignMode ? 10 : 100000).Select(i=> new Student 
                 {
@@ -177,6 +173,9 @@ namespace CV19.ViewModels
                     Surname = $"Фамилия {i}"
                 });
 
+        #endregion
+
+        #region Вкладка 5 "Файловая система"
         public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("c:\\");
 
         #region SelectedDirectory : DirectoryViewModel - Выбранная директория
@@ -191,6 +190,24 @@ namespace CV19.ViewModels
         {
             get => _SelectedDirectory;
             set => Set(ref _SelectedDirectory, value);
+        }
+        #endregion
+        
+        #endregion
+
+
+        #region Status : string - Статус программы
+        /// <summary>
+        /// Статус программы
+        /// </summary>
+        private string _Status = "Готово!";
+        /// <summary>
+        /// Статус программы
+        /// </summary>
+        public string Status
+        {
+            get => _Status;
+            set => Set(ref _Status, value);
         }
         #endregion
 
