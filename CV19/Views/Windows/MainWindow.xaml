@@ -10,6 +10,7 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:l="clr-namespace:CV19" xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:view="clr-namespace:CV19.Views"
         Title="{Binding Path=Title}" 
         Height="450" Width="800">
     <Window.InputBindings>
@@ -338,6 +339,9 @@
                         <!--<ListBox ItemsSource="{Binding SelectedDirectory}"/>--><!--
                     </GroupBox>-->
                 </Grid>
+            </TabItem>
+            <TabItem Header="Статистика">
+                <view:CountriesStatisticView/>
             </TabItem>
         </TabControl>
 
