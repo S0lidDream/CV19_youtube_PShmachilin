@@ -17,6 +17,9 @@ namespace CV19.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         /*-------------------------------------------------------------------------------------------*/
+        private readonly CountriesStatisticViewModel _CountriesStatisticViewModel;
+
+        /*-------------------------------------------------------------------------------------------*/
         #region Заголовок главного окна
         private string _Title = "Анализ статистики CV19";
 
@@ -269,6 +272,8 @@ namespace CV19.ViewModels
         /*-------------------------------------------------------------------------------------------*/
         public MainWindowViewModel()
         {
+            _CountriesStatisticViewModel = new CountriesStatisticViewModel(this);
+
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
