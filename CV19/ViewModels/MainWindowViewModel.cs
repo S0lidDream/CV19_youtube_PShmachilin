@@ -17,7 +17,7 @@ namespace CV19.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         /*-------------------------------------------------------------------------------------------*/
-        private readonly CountriesStatisticViewModel _CountriesStatisticViewModel;
+        public CountriesStatisticViewModel CountriesStatisticVM { get; }
 
         /*-------------------------------------------------------------------------------------------*/
         #region Заголовок главного окна
@@ -272,7 +272,7 @@ namespace CV19.ViewModels
         /*-------------------------------------------------------------------------------------------*/
         public MainWindowViewModel()
         {
-            _CountriesStatisticViewModel = new CountriesStatisticViewModel(this);
+            CountriesStatisticVM = new CountriesStatisticViewModel(this);
 
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
