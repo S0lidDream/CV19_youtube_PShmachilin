@@ -12,7 +12,7 @@ namespace CV19.ViewModels
 {
     internal class CountriesStatisticViewModel : ViewModel
     {
-        private DataService _DataService;
+        private readonly DataService _DataService;
         private MainWindowViewModel MainModelVM { get; }
 
         #region Countries : IEnumerable<CountryInfo> - Статистика по странам
@@ -29,6 +29,23 @@ namespace CV19.ViewModels
             set => Set(ref _Countries, value);
         }
         #endregion
+
+        #region SelectedCountry : CountryInfo - Выбранная страна
+        /// <summary>
+        /// Выбранная страна
+        /// </summary>
+        private CountryInfo _SelectedCountry;
+
+        /// <summary>
+        /// Выбранная страна
+        /// </summary>
+        public CountryInfo SelectedCountry
+        {
+            get => _SelectedCountry;
+            set => Set(ref _SelectedCountry, value);
+        }
+        #endregion
+
 
 
         #region Команды
