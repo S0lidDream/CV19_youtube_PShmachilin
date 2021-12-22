@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace CV19.Infrastructure.Converters
 {
-    [MarkupExtensionReturnType(typeof(RatioConverter))]
-    internal class RatioConverter : BaseConverter
+    [MarkupExtensionReturnType(typeof(AddConverter))]
+    internal class AddConverter : BaseConverter
     {
-        // 1:32:19
         [ConstructorArgument("K")]
         public double K { get; set; } = 1;
 
-        public RatioConverter() { }
+        public AddConverter() { }
 
-        public RatioConverter(double K) => this.K = K;
+        public AddConverter(double K) => this.K = K;
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is null) return null;

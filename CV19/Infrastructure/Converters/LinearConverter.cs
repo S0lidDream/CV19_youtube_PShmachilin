@@ -11,6 +11,7 @@ namespace CV19.Infrastructure.Converters
     /// Реализация линейного преобразования f(x) = k*x + b
     /// </summary>
     [ValueConversion(typeof(double), typeof(double))]
+    [MarkupExtensionReturnType(typeof(LinearConverter))]
     internal class LinearConverter : BaseConverter
     {
         [ConstructorArgument("K")]

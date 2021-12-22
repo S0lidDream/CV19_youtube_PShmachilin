@@ -9,6 +9,7 @@
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:conv="clr-namespace:CV19.Infrastructure.Converters"
              xmlns:fa="http://schemas.fontawesome.com/icons/" 
+             xmlns:common="clr-namespace:CV19.Infrastructure.Common"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -70,20 +71,20 @@
                 </Grid.RowDefinitions>
                 <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Panel.ZIndex="1000"/>
                 <StackPanel Grid.Row="0">
-                    <Slider Grid.Row="0" Name="Value1" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
-                    <Slider Grid.Row="0" Name="Value2" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
-                    <Slider Grid.Row="0" Name="Value3" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
+                    <Slider Grid.Row="0" Name="Value1" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}, Converter={conv:LinearConverter 5}}"/>
+                    <Slider Grid.Row="0" Name="Value2" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}, Converter={conv:CompositeConverter FirstConverter={conv:AddConverter K=5},SecondConverter={conv:RatioConverter K=7}}}"/>
+                    <Slider Grid.Row="0" Name="Value3" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}, Converter={conv:CompositeConverter {conv:LinearConverter B=5,K=7}, {conv:AddConverter K=7}}}"/>
                     <Slider Grid.Row="0" Name="Value4" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
                 </StackPanel>
-                <ListBox Grid.Row="1">
-                    <ListBox.ItemsSource>
+                <ListBox Grid.Row="1" ItemsSource="{common:StringToIntArray Str='1;2;3;4;5'}">
+                    <!--<ListBox.ItemsSource>
                         <MultiBinding Converter="{StaticResource ToArrayConv}">
                             <Binding ElementName="Value1" Path="Value"/>
                             <Binding ElementName="Value2" Path="Value"/>
                             <Binding ElementName="Value3" Path="Value"/>
                             <Binding ElementName="Value4" Path="Value"/>
                         </MultiBinding>
-                    </ListBox.ItemsSource>
+                    </ListBox.ItemsSource>-->
                 </ListBox>
             </Grid>
         </GroupBox>

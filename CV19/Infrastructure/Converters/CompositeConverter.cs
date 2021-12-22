@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace CV19.Infrastructure.Converters
 {
+    [MarkupExtensionReturnType(typeof(CompositeConverter))]
     internal class CompositeConverter : BaseConverter
     {
+        [ConstructorArgument("FirstConverter")]
         public IValueConverter FirstConverter { get; set; }
+        [ConstructorArgument("SecondConverter")]
         public IValueConverter SecondConverter { get; set; }
 
+        public CompositeConverter() { }
+
+        public CompositeConverter(IValueConverter first)
+        {
+            FirstConverter = first;
+        }
+
+        public CompositeConverter(IValueConverter first, IValueConverter second) : this(first) => this.SecondConverter = second;
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

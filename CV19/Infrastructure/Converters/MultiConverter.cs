@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace CV19.Infrastructure.Converters
 {
+    [MarkupExtensionReturnType(typeof(MultiConverter))]
     internal abstract class MultiConverter : IMultiValueConverter
     {
         public abstract object Convert(object[] values, Type targetType, object parameter, CultureInfo culture);
