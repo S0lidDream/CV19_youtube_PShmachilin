@@ -10,14 +10,16 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:l="clr-namespace:CV19" xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:view="clr-namespace:CV19.Views"
         Title="{Binding Path=Title}" 
-        Height="450" Width="800">
+        Height="450" Width="800"
+        DataContext="{vm:MainWindowViewModel}">
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding Path=CloseApplicationCommand}"/>
     </Window.InputBindings>
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <Window.Resources>
         <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
         <!--<Style TargetType="Button">
@@ -338,6 +340,9 @@
                         <!--<ListBox ItemsSource="{Binding SelectedDirectory}"/>--><!--
                     </GroupBox>-->
                 </Grid>
+            </TabItem>
+            <TabItem Header="Статистика">
+                <view:CountriesStatisticView DataContext="{Binding CountriesStatisticVM}"/>
             </TabItem>
         </TabControl>
 

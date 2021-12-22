@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using CV19.Infrastructure.Commands;
 using CV19.Models;
 using CV19.Models.Decanat;
@@ -14,8 +15,12 @@ using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
 {
+    [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : ViewModel
     {
+        /*-------------------------------------------------------------------------------------------*/
+        public CountriesStatisticViewModel CountriesStatisticVM { get; }
+
         /*-------------------------------------------------------------------------------------------*/
         #region Заголовок главного окна
         private string _Title = "Анализ статистики CV19";
@@ -269,6 +274,8 @@ namespace CV19.ViewModels
         /*-------------------------------------------------------------------------------------------*/
         public MainWindowViewModel()
         {
+            CountriesStatisticVM = new CountriesStatisticViewModel(this);
+
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
